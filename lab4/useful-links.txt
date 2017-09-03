@@ -1,0 +1,19 @@
+- Suppressing RSTs (http://dyduck.blogspot.com/2013/02/how-to-suppress-rst-segments-be-sent.html)
+
+- Default grub entry (http://askubuntu.com/questions/216398/set-older-kernel-as-default-grub-entry)
+
+- Booting an older kernel (http://askubuntu.com/questions/82140/how-can-i-boot-with-an-older-kernel-version)
+
+- Build your own kernel (https://wiki.ubuntu.com/Kernel/BuildYourOwnKernel)
+
+- Wireshark with root (http://askubuntu.com/questions/74059/how-do-i-run-wireshark-with-root-privileges)
+
+- Valgrind suppression
+(https://wiki.wxwidgets.org/Valgrind_Suppression_File_Howto)
+
+- Wireshark Dissectors
+(http://wsgd.free.fr/first_proto.html)
+
+- Compile tester
+>>> import py_compile
+>>> py_compile.compile('tester.py')
