@@ -1,0 +1,8 @@
+AS_type connection_type local_AS remote_AS peering_location subnet
+Tier2 Prov1 10 15 NEWY 179.24.38.0/24
+Tier2 Prov2 10 9 SEAT 179.24.39.0/24
+Tier2 Peer1 10 5 WASH 179.24.35.0/24
+Tier2 Peer2 10 7 SALT 179.24.22.0/24
+Tier2 Cust1 10 2 KANS 179.24.40.0/24
+Tier2 Cust2 10 8 LOSA 179.24.41.0/24
+Tier2 Mgnt 10 100 HOUS-MGT 10.0.199.1/24
