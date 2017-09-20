@@ -147,4 +147,13 @@ int   sr_arpcache_init(struct sr_arpcache *cache);
 int   sr_arpcache_destroy(struct sr_arpcache *cache);
 void *sr_arpcache_timeout(void *cache_ptr);
 
+/* my own methods */
+void sr_attempt_send(struct sr_instance *, uint32_t , uint8_t *, unsigned int , char *);
+void sr_send_arp(struct sr_instance *, enum sr_arp_opcode , char *, unsigned char *, uint32_t );
+void sr_handle_arpreq(struct sr_instance *, struct sr_arpreq *);
+void sr_send_icmp_to_waiting(struct sr_instance *, struct sr_arpreq *);
+void sr_send_arp_req(struct sr_instance *, uint32_t );
+void sr_send_eth(struct sr_instance *, uint8_t *, unsigned int , uint8_t *, char *, enum sr_ethertype );
+void sr_recv_arp(struct sr_instance *, struct sr_arp_hdr *);
+
 #endif

@@ -101,7 +101,21 @@ struct sr_icmp_t3_hdr {
 } __attribute__ ((packed)) ;
 typedef struct sr_icmp_t3_hdr sr_icmp_t3_hdr_t;
 
+/* my enums */
+enum sr_icmp_type {
+  icmp_ttl = 11,
+  icmp_unreach = 3,
+  icmp_echo_reply = 0,
+  icmp_echo_request = 8,
+};
 
+enum sr_icmp_code {
+  icmp_port_unreach = 3,
+  icmp_host_unreach = 1,
+  icmp_network_unreach = 0,
+  icmp_ttl_code = 0,
+  icmp_echo_reply_code = 0,
+};
 
 
 /*

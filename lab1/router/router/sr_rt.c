@@ -176,3 +176,24 @@ void sr_print_routing_entry(struct sr_rt* entry)
     printf("%s\n",entry->interface);
 
 } /* -- sr_print_routing_entry -- */
+
+/* return the longest prefix match in the routing table for an IP address */
+struct sr_rt * longest_prefix_match(struct sr_instance *sr, uint32_t ip_dst){
+   struct in_addr target;
+   target.s_addr = ip_dst;
+   struct sr_rt* route = sr->routing_table;
+   struct in_addr largest_mask;
+   largest_mask.s_addr = 0;
+   struct sr_rt * lpm = NULL;
+   while(route){
+       uint32_t result = route->mask.s_addr & target.s_addr;
+       if(result == route->dest.s_addr){
+           if(ntohl(route->mask.s_addr) >= ntohl(largest_mask.s_addr) ){
+               largest_mask = route->mask;
+               lpm = route;
+           }
+       }
+       route = route->next;
+   }
+   return lpm;
+}
