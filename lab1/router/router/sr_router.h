@@ -68,6 +68,15 @@ int sr_read_from_server(struct sr_instance* );
 void sr_init(struct sr_instance* );
 void sr_handlepacket(struct sr_instance* , uint8_t * , unsigned int , char* );
 
+/* my own methods in sr_router.c */
+void sr_handle_ip_packet(struct sr_instance* , uint8_t * , unsigned int , char* );
+void sr_handle_arp_packet(struct sr_instance* , struct sr_arp_hdr * , unsigned int , char* );
+struct sr_if * sr_check_packet(struct sr_instance *, uint32_t );
+void sr_handle_my_ip_packet(struct sr_instance * , struct sr_ip_hdr * );
+void sr_send_icmp3(struct sr_instance *, enum sr_icmp_type , enum sr_icmp_code, uint32_t , uint32_t , uint8_t *, unsigned int );
+void sr_send_icmp(struct sr_instance *, enum sr_icmp_type , enum sr_icmp_code, uint32_t , uint32_t , uint8_t *, unsigned int );
+void sr_send_ip(struct sr_instance *, enum sr_ip_protocol , uint32_t , uint32_t , uint8_t *, unsigned int );
+
 /* -- sr_if.c -- */
 void sr_add_interface(struct sr_instance* , const char* );
 void sr_set_ether_ip(struct sr_instance* , uint32_t );
