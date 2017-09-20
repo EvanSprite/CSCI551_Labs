@@ -26,7 +26,7 @@ void sr_arpcache_sweepreqs(struct sr_instance *sr) {
 	}
 }
 
-/* Tries to find ip address in arp cache. If found, sendd ethernet frame, else, add packet to arp queue */
+/* Tries to find ip address in arp cache. If found, send ethernet frame, else, add packet to arp queue */
 void sr_attempt_send(struct sr_instance *sr, uint32_t ip_dest,
 	uint8_t *frame,
 	unsigned int frame_len,
