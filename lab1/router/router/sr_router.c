@@ -147,7 +147,8 @@ void sr_handle_ip_packet(struct sr_instance* sr, uint8_t * packet, unsigned int 
        fprintf(stderr, "TTL hits zero, sending an ICMP packet back....\n");
        uint8_t * buf = calloc(4 + ip_hdr_l + 8, 1);
        memcpy(buf + 4, ip_hdr, ip_hdr_l + 8);
-       sr_send_icmp(sr, icmp_ttl, icmp_ttl_code, ip_hdr->ip_dst, ip_hdr->ip_src, buf, 4 + ip_hdr_l + 8);
+       iface = sr_get_interface(sr, interface);
+       sr_send_icmp(sr, icmp_ttl, icmp_ttl_code, iface->ip, ip_hdr->ip_src, buf, 4 + ip_hdr_l + 8);
        free(buf);
        return;
      }
