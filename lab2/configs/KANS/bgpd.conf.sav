@@ -1,0 +1,11 @@
+!
+! Zebra configuration saved from vty
+!   2016/02/17 03:08:06
+!
+log file /var/log/quagga/bgpd_G5_KANS.log
+!
+hostname G5_KANS
+password G5_KANS
+!
+line vty
+!
