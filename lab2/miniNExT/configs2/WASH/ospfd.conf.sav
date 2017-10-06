@@ -1,0 +1,10 @@
+!
+! Zebra configuration saved from vty
+!   2016/02/17 03:08:06
+!
+hostname G5_WASH
+password G5_WASH
+log file /var/log/quagga/ospfd_G5_WASH.log
+!
+line vty
+!

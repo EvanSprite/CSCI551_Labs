@@ -1,0 +1,33 @@
+!
+! Zebra configuration saved from vty
+!   2017/10/05 20:17:13
+!
+hostname G5_LOSA
+password G5_LOSA
+log file /var/log/quagga/ospfd_G5_LOSA.log
+!
+!
+!
+interface ebgp_peer
+!
+interface host
+!
+interface hous
+ ip ospf cost 1705
+!
+interface lo
+!
+interface salt
+ ip ospf cost 1303
+!
+interface seat
+ ip ospf cost 1342
+!
+router ospf
+ network 11.0.10.2/24 area 0.0.0.0
+ network 11.0.11.2/24 area 0.0.0.0
+ network 11.0.13.1/24 area 0.0.0.0
+ network 11.108.0.2/24 area 0.0.0.0
+!
+line vty
+!

@@ -1,0 +1,37 @@
+!
+! Zebra configuration saved from vty
+!   2017/10/04 20:13:21
+!
+hostname G5_WASH
+password G5_WASH
+log file /var/log/quagga/bgpd_G5_WASH.log
+!
+router bgp 11
+ bgp router-id 11.103.0.2
+ neighbor 11.101.0.2 remote-as 11
+ neighbor 11.101.0.2 update-source host
+ neighbor 11.101.0.2 next-hop-self
+ neighbor 11.102.0.2 remote-as 11
+ neighbor 11.102.0.2 update-source host
+ neighbor 11.102.0.2 next-hop-self
+ neighbor 11.104.0.2 remote-as 11
+ neighbor 11.104.0.2 update-source host
+ neighbor 11.104.0.2 next-hop-self
+ neighbor 11.105.0.2 remote-as 11
+ neighbor 11.105.0.2 update-source host
+ neighbor 11.105.0.2 next-hop-self
+ neighbor 11.106.0.2 remote-as 11
+ neighbor 11.106.0.2 update-source host
+ neighbor 11.106.0.2 next-hop-self
+ neighbor 11.107.0.2 remote-as 11
+ neighbor 11.107.0.2 update-source host
+ neighbor 11.107.0.2 next-hop-self
+ neighbor 11.108.0.2 remote-as 11
+ neighbor 11.108.0.2 update-source host
+ neighbor 11.108.0.2 next-hop-self
+ neighbor 11.109.0.2 remote-as 11
+ neighbor 11.109.0.2 update-source host
+ neighbor 11.109.0.2 next-hop-self
+!
+line vty
+!
