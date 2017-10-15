@@ -26,7 +26,7 @@ void sr_arpcache_sweepreqs(struct sr_instance *sr) {
 	}
 }
 
-/* Tries to find ip address in arp cache. If found, sendd ethernet frame, else, add packet to arp queue */
+/* Tries to find ip address in arp cache. If found, send ethernet frame, else, add packet to arp queue */
 void sr_attempt_send(struct sr_instance *sr, uint32_t ip_dest,
 	uint8_t *frame,
 	unsigned int frame_len,
@@ -75,8 +75,10 @@ void sr_handle_arpreq(struct sr_instance *sr, struct sr_arpreq *req){
 	if (now - req->sent > 1.0){
 		if (req->times_sent >= 5){
 			fprintf(stderr, "Sent 5 times, destroying..... \n");
+			/*printf("5 times sent, destroy\n");*/
 			/* Send an ICMP host unreachable to ALL packets waiting */
 			sr_send_icmp_to_waiting(sr, req);
+			/*printf("sr_send_icmp_to_waiting finished\n");*/
 			sr_arpreq_destroy(cache, req);
 		}
 		else{
@@ -95,6 +97,8 @@ void sr_send_icmp_to_waiting(struct sr_instance *sr, struct sr_arpreq *req){
 		struct sr_if* node = sr_get_interface(sr, packet->iface);
 		struct sr_ethernet_hdr *eth = (sr_ethernet_hdr_t *)(packet->buf);
 		struct sr_ip_hdr *ip_hdr = (sr_ip_hdr_t *)(eth + 1);
+		/*print_addr_ip_int(ntohl(node->ip));
+		print_addr_ip_int(ntohl(ip_hdr->ip_src));*/
 		sr_send_icmp3(sr, icmp_unreach, icmp_host_unreach, node->ip, ip_hdr->ip_src, (uint8_t*)ip_hdr, (4 * (ip_hdr->ip_hl)) + 8);
 		packet = packet->next;
 	}
