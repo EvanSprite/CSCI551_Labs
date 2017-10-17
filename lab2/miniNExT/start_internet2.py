@@ -12,30 +12,89 @@ mininet.util.isShellBuiltin = mininext.util.isShellBuiltin
 sys.modules['mininet.util'] = mininet.util
 
 from mininet.util import dumpNodeConnections
-from mininet.node import OVSController
+from mininet.node import OVSController, RemoteController
 from mininet.log import setLogLevel, info
 
 from mininext.cli import CLI
 from mininext.net import MiniNExT
 from mininet.link import Link, TCLink
+from mininet.util import quietRun
 
 from topo_internet2 import QuaggaInternet2Topo
+
+# # Add path to Lab-1 files
+# sys.path.append('/home/cs551/551-Labs/lab1/router')
+# from lab3 import CS144Controller
 
 from sets import Set
 
 net = None
 
+def addStaticNet(net):
+    s1 = net.addHost( 'server1' )
+    sr0 = net.addSwitch( 'sr0' )
+    net.addLink( s1, sr0, intfName1='server1-eth0', intfName2='sr0-eth1' )
+    net.addLink( sr0, net.getNodeByName('NEWY'), intfName1='sr0-eth2', intfName2='newy-sr0')
+    net.addController('csr0', controller=RemoteController)
+    
+    s2 = net.addHost( 'server2' )
+    net.addLink( s2, net.getNodeByName('SEAT'), intfName1='server2-eth0', intfName2='seat-server2' )
 
-def startNetwork(topo_info, router_lo, init_quagga_configs):
+def setStaticNet(net, group_number):
+    server1, server2, router = net.get( 'server1', 'server2', 'sr0' )
+    s1intf = server1.defaultIntf()
+    s1intf.setIP('192.168.2.2/24')
+    s2intf = server2.defaultIntf()
+    s2intf.setIP(str(group_number) + '.109.0.3/24')
+    
+    server1.cmd('route add %s/32 dev %s-eth0' % ('192.168.2.1', 'server1'))
+    server1.cmd('route add default gw %s dev %s-eth0' % ('192.168.2.1', 'server1'))
+    server1.cmd('route del -net %d.0.0.0/8 dev %s-eth0' % (group_number+2, 'server1'))
+
+    server2.cmd('route add %s/32 dev %s-eth0' % (str(group_number) + '.109.0.4', 'server2'))
+    server2.cmd('route add default gw %s dev %s-eth0' % (str(group_number) + '.109.0.4', 'server2'))
+    server2.cmd('route del -net %d.0.0.0/8 dev %s-eth0' % (group_number, 'server2'))
+
+    starthttp(server1)
+    starthttp(server2)
+
+
+def stopStaticNet(net):
+    stophttp() 
+
+
+def starthttp( host ):
+    "Start simple Python web server on hosts"
+    info( '*** Starting SimpleHTTPServer on host', host, '\n' )
+    host.cmd( 'cd ../http_%s/; nohup python2.7 ./webserver.py &' % (host.name) )
+
+
+def stophttp():
+    "Stop simple Python web servers"
+    info( '*** Shutting down stale SimpleHTTPServers', 
+          quietRun( "pkill -9 -f SimpleHTTPServer" ), '\n' )    
+    info( '*** Shutting down stale webservers', 
+          quietRun( "pkill -9 -f webserver.py" ), '\n' )    
+
+
+def startNetwork(topo_info, router_lo, init_quagga_configs, group_number):
     "instantiates a topo, then starts the network and prints debug information"
 
     info('** Creating Quagga network topology\n')
     topo = QuaggaInternet2Topo(topo_info, router_lo)
 
-    info('** Starting the network\n')
     global net
-    net = MiniNExT(topo, controller=OVSController)
+    #net = MiniNExT(topo, controller=OVSController)
+    net = MiniNExT(topo, controller=RemoteController)
+
+    info('** Adding Static networks\n')
+    addStaticNet(net)
+
+    info('** Starting the network\n')
     net.start()
+
+    info('** Setting Static network\n')
+    setStaticNet(net,group_number)
 
     info('** Adding links and loopback interfaces')
     links_set = Set()
@@ -75,10 +134,15 @@ def startNetwork(topo_info, router_lo, init_quagga_configs):
 
     info('** Dumping host processes\n')
     for host in net.hosts:
+        if host.name in ['server1', 'server2']:
+            continue
         host.cmdPrint("ps aux")
 
     info('** Running CLI\n')
     CLI(net)
+
+    stopStaticNet(net)
+
 
 def stopNetwork():
     "stops a network (only called on a forced cleanup)"
@@ -146,10 +210,10 @@ if __name__ == '__main__':
         '/root/configs')
 
     # Force cleanup on exit by registering a cleanup function
-    atexit.register(stopNetwork)
+    # atexit.register(stopNetwork)
 
     # Tell mininet to print useful information
     setLogLevel('info')
-    startNetwork(topo_info, router_lo, init_quagga_configs)
+    startNetwork(topo_info, router_lo, init_quagga_configs, group_number)
 
     info('** Quit miniNExT **')

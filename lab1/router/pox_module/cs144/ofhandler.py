@@ -143,14 +143,19 @@ def get_ip_setting():
     #print name, ip
     IP_SETTING[name] = ip
 
-  RTABLE.append( ('%s' % IP_SETTING['client'], '%s' % IP_SETTING['client'], '255.255.255.255', 'eth3') )
+  #RTABLE.append( ('%s' % IP_SETTING['client'], '%s' % IP_SETTING['client'], '255.255.255.255', 'eth3') )
+  #RTABLE.append( ('%s' % IP_SETTING['server1'], '%s' % IP_SETTING['server1'], '255.255.255.255', 'eth1') )
+  #RTABLE.append( ('%s' % IP_SETTING['server2'], '%s' % IP_SETTING['server2'], '255.255.255.255', 'eth2') )
+
+  #ROUTER_IP['eth1'] = '%s' % IP_SETTING['sw0-eth1']
+  #ROUTER_IP['eth2'] = '%s' % IP_SETTING['sw0-eth2']
+  #ROUTER_IP['eth3'] = '%s' % IP_SETTING['sw0-eth3']
+
   RTABLE.append( ('%s' % IP_SETTING['server1'], '%s' % IP_SETTING['server1'], '255.255.255.255', 'eth1') )
-  RTABLE.append( ('%s' % IP_SETTING['server2'], '%s' % IP_SETTING['server2'], '255.255.255.255', 'eth2') )
+  RTABLE.append( ('%s' % IP_SETTING['newy-sr0'], '%s' % IP_SETTING['newy-sr0'], '255.255.255.255', 'eth2') )
 
-
-  ROUTER_IP['eth1'] = '%s' % IP_SETTING['sw0-eth1']
-  ROUTER_IP['eth2'] = '%s' % IP_SETTING['sw0-eth2']
-  ROUTER_IP['eth3'] = '%s' % IP_SETTING['sw0-eth3']
+  ROUTER_IP['eth1'] = '%s' % IP_SETTING['sr0-eth1']
+  ROUTER_IP['eth2'] = '%s' % IP_SETTING['sr0-eth2']
   return 0
 
 
