@@ -1,0 +1,33 @@
+!
+! Zebra configuration saved from vty
+!   2017/10/16 23:04:30
+!
+hostname G2_SALT
+password G2_SALT
+log file /var/log/quagga/ospfd_G2_SALT.log
+!
+!
+!
+interface ebgp_peer
+!
+interface host
+!
+interface kans
+ ip ospf cost 1330
+!
+interface lo
+!
+interface losa
+ ip ospf cost 1303
+!
+interface seat
+ ip ospf cost 913
+!
+router ospf
+ network 2.0.9.2/24 area 0.0.0.0
+ network 2.0.11.1/24 area 0.0.0.0
+ network 2.0.12.1/24 area 0.0.0.0
+ network 2.107.0.2/24 area 0.0.0.0
+!
+line vty
+!

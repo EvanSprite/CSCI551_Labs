@@ -1,0 +1,15 @@
+!
+! Zebra configuration saved from vty
+!   2017/10/16 23:59:32
+!
+hostname G2_NEWY
+password G2_NEWY
+log file /var/log/quagga/bgpd_G2_NEWY.log
+!
+router bgp 4
+ bgp router-id 3.0.4.1
+ network 3.0.4.0/24
+ neighbor 3.0.4.2 remote-as 2
+!
+line vty
+!

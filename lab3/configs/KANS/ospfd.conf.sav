@@ -1,0 +1,33 @@
+!
+! Zebra configuration saved from vty
+!   2017/10/16 23:02:17
+!
+hostname G2_KANS
+password G2_KANS
+log file /var/log/quagga/ospfd_G2_KANS.log
+!
+!
+!
+interface chic
+ ip ospf cost 690
+!
+interface ebgp_peer
+!
+interface host
+!
+interface hous
+ ip ospf cost 818
+!
+interface lo
+!
+interface salt
+ ip ospf cost 1330
+!
+router ospf
+ network 2.0.6.2/24 area 0.0.0.0
+ network 2.0.8.1/24 area 0.0.0.0
+ network 2.0.9.1/24 area 0.0.0.0
+ network 2.105.0.2/24 area 0.0.0.0
+!
+line vty
+!

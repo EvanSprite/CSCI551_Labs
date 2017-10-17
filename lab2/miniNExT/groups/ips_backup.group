@@ -1,0 +1,26 @@
+# Mapping Router/Interface -> IP address
+NEWY	WASH    _X_.0.4.1/24     _X_.101.0.1
+CHIC    WASH    _X_.0.2.2/24     _X_.102.0.1
+CHIC    ATLA    _X_.0.3.2/24     _X_.102.0.1
+CHIC    KANS    _X_.0.6.1/24     _X_.102.0.1
+WASH    NEWY    _X_.0.4.2/24     _X_.103.0.1
+WASH    CHIC    _X_.0.2.1/24     _X_.103.0.1
+WASH    ATLA    _X_.0.5.1/24     _X_.103.0.1
+ATLA    WASH    _X_.0.5.2/24     _X_.104.0.1
+ATLA    CHIC    _X_.0.3.1/24     _X_.104.0.1
+ATLA    HOUS    _X_.0.7.1/24     _X_.104.0.1
+KANS    CHIC    _X_.0.6.2/24     _X_.105.0.1
+KANS    HOUS    _X_.0.8.1/24     _X_.105.0.1
+KANS    SALT    _X_.0.9.1/24     _X_.105.0.1
+HOUS    ATLA    _X_.0.7.2/24     _X_.106.0.1
+HOUS    KANS    _X_.0.8.2/24     _X_.106.0.1
+HOUS    LOSA    _X_.0.10.1/24    _X_.106.0.1
+SALT    KANS    _X_.0.9.2/24     _X_.107.0.1
+SALT    SEAT    _X_.0.12.1/24    _X_.107.0.1
+SALT    LOSA    _X_.0.11.1/24    _X_.107.0.1
+LOSA    HOUS    _X_.0.10.2/24    _X_.108.0.1
+LOSA    SALT    _X_.0.11.2/24    _X_.108.0.1
+LOSA    SEAT    _X_.0.13.1/24    _X_.108.0.1
+SEAT    SALT    _X_.0.12.2/24    _X_.109.0.1
+SEAT    LOSA    _X_.0.13.2/24    _X_.109.0.1
+# External routes

@@ -1,0 +1,31 @@
+!
+! Zebra configuration saved from vty
+!   2017/10/17 00:09:01
+!
+hostname G2_WASH
+password G2_WASH
+log file /var/log/quagga/ospfd_G2_WASH.log
+!
+!
+!
+interface atla
+ ip ospf cost 700
+!
+interface chic
+ ip ospf cost 905
+!
+interface ebgp_peer
+!
+interface host
+!
+interface lo
+!
+interface newy
+!
+router ospf
+ network 2.0.2.1/24 area 0.0.0.0
+ network 2.0.5.1/24 area 0.0.0.0
+ network 2.103.0.2/24 area 0.0.0.0
+!
+line vty
+!

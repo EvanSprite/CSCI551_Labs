@@ -1,0 +1,24 @@
+!
+! Zebra configuration saved from vty
+!   2017/10/16 23:59:32
+!
+hostname G2_NEWY
+password G2_NEWY
+log file /var/log/quagga/ospfd_G2_NEWY.log
+!
+!
+!
+interface ebgp_peer
+!
+interface host
+!
+interface lo
+!
+interface newy-sr0
+!
+interface wash
+!
+router ospf
+!
+line vty
+!

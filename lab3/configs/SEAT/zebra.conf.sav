@@ -1,0 +1,29 @@
+!
+! Zebra configuration saved from vty
+!   2017/10/16 20:28:50
+!
+hostname G2_SEAT
+password G2_SEAT
+!
+interface ebgp_peer
+!
+interface host
+ ip address 2.109.10.2/24
+!
+interface lo
+!
+interface losa
+ ip address 2.0.13.2/24
+!
+interface salt
+ ip address 2.0.12.2/24
+!
+interface seat-server2
+ ip address 2.109.0.4/24
+!
+ip forwarding
+ipv6 forwarding
+!
+!
+line vty
+!

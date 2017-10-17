@@ -1,0 +1,37 @@
+!
+! Zebra configuration saved from vty
+!   2017/10/17 00:09:01
+!
+hostname G2_WASH
+password G2_WASH
+log file /var/log/quagga/bgpd_G2_WASH.log
+!
+router bgp 2
+ bgp router-id 2.103.0.2
+ network 2.0.0.0/8
+ network 3.0.4.0/24
+ neighbor 2.102.0.2 remote-as 2
+ neighbor 2.102.0.2 update-source host
+ neighbor 2.102.0.2 next-hop-self
+ neighbor 2.104.0.2 remote-as 2
+ neighbor 2.104.0.2 update-source host
+ neighbor 2.104.0.2 next-hop-self
+ neighbor 2.105.0.2 remote-as 2
+ neighbor 2.105.0.2 update-source host
+ neighbor 2.105.0.2 next-hop-self
+ neighbor 2.106.0.2 remote-as 2
+ neighbor 2.106.0.2 update-source host
+ neighbor 2.106.0.2 next-hop-self
+ neighbor 2.107.0.2 remote-as 2
+ neighbor 2.107.0.2 update-source host
+ neighbor 2.107.0.2 next-hop-self
+ neighbor 2.108.0.2 remote-as 2
+ neighbor 2.108.0.2 update-source host
+ neighbor 2.108.0.2 next-hop-self
+ neighbor 2.109.10.2 remote-as 2
+ neighbor 2.109.10.2 update-source host
+ neighbor 2.109.10.2 next-hop-self
+ neighbor 3.0.4.1 remote-as 4
+!
+line vty
+!
