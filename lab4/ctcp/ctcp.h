@@ -27,6 +27,14 @@
  * if not all the segments are of the full MAX_SEG_DATA_SIZE in size.
  */
 #define MAX_SEG_DATA_SIZE 1440
+#define MAX_SEG_WIN_SIZE MAX_SEG_DATA_SIZE
+#define DATA_PKT      1
+#define ACK_PKT       2
+#define EOF_PKT       3
+#define DATA_HEADER_LEN sizeof(ctcp_segment_t)
+#define ACK_HEADER_LEN  sizeof(ctcp_segment_t)
+#define RETRANS_ATTMP 5
+
 
 /**
  * cTCP flags.
@@ -182,3 +190,4 @@ void ctcp_output(ctcp_state_t *state);
 void ctcp_timer();
 
 #endif /* CTCP_H */
+
