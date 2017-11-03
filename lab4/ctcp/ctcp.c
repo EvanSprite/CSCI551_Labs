@@ -212,6 +212,9 @@ void ctcp_read(ctcp_state_t *state) {
 	if (state->read_finish == 1){
 		return;
 	}
+	// flow control on sender side, segment inflight doesn't exceed sender window size
+	if (state->next_seqno >= state->seqno + state->send_window)
+		return;
 
 	char buffer[MAX_SEG_DATA_SIZE];
 	int input_res = conn_input(state->conn, buffer, MAX_SEG_DATA_SIZE);
