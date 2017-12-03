@@ -11,6 +11,7 @@
 #define CTCP_H
 
 #include "ctcp_sys.h"
+#include "ctcp_linked_list.h"
 
 /**
 * Maximum segment data size.
@@ -28,6 +29,7 @@
 */
 #define MAX_SEG_DATA_SIZE 1440
 #define RETRANSMIT_LIMIT 5
+#define FILTER_SIZE 10
 
 /**
 * cTCP flags.
@@ -65,6 +67,54 @@ typedef struct {
 * The definition can be found in ctcp.c. You should add to this to store other
 * fields you might need.
 */
+
+/**
+* Connection state.
+*
+* Stores per-connection information such as the current sequence number,
+* unacknowledged packets, etc.
+*
+* You should add to this to store other fields you might need.
+*/
+struct ctcp_state {
+	struct ctcp_state *next;  /* Next in linked list */
+	struct ctcp_state **prev; /* Prev in linked list */
+
+	conn_t *conn;             /* Connection object -- needed in order to figure
+							  out destination when sending */
+	linked_list_t *segments;  /* Linked list of segments sent to this connection.
+							  It may be useful to have multiple linked lists
+							  for unacknowledged segments, segments that
+							  haven't been sent, etc. Lab 1 uses the
+							  stop-and-wait protocol and therefore does not
+							  necessarily need a linked list. You may remove
+							  this if this is the case for you */
+
+	/* FIXME: Add other needed fields. */
+	uint32_t seqno;              /* Current sequence number */
+	uint32_t next_seqno;         /* Sequence number of next segment to send */
+	uint32_t ackno;              /* Current ack number */
+	uint16_t recv_window;    /* Receive window size (in multiples of
+							 MAX_SEG_DATA_SIZE) of THIS host. For Lab 1 this
+							 value will be 1 * MAX_SEG_DATA_SIZE */
+	uint16_t send_window;    /* Send window size (a.k.a. receive window size of
+							 the OTHER host). For Lab 1 this value
+							 will be 1 * MAX_SEG_DATA_SIZE */
+	int rt_timeout;          /* Retransmission timeout, in ms */
+	int read_finish;		/* mark whether read is finished */
+	char *output;			/* bytes to output, for ctcp_output() */
+	int output_len;			/* length of output */
+	long current_time;		/* record current time */
+	int FIN_received;		/* already received FIN from sender, sender disconnected */
+	int FIN_sent;			/* already sent FIN, disconnected to receiver*/
+	int get_all_ack;		/* all sent segments are acked */
+	int all_recv_output;	/* outpute all received segments */
+	int retrans_count;		/* count for retransmit times */
+
+	struct ctcp_bbr *bbr;
+};
+
+
 struct ctcp_state;
 typedef struct ctcp_state ctcp_state_t;
 
@@ -181,6 +231,25 @@ void ctcp_output(ctcp_state_t *state);
 * Note that this is called BEFORE ctcp_init() so state_list might be NULL.
 */
 void ctcp_timer();
+
+
+/* FIXME: Feel free to add as many helper functions as needed. Don't repeat
+code! Helper functions make the code clearer and cleaner. */
+
+//**************helper functions*************************
+
+// send fin segment
+void ctcp_send_fin(ctcp_state_t *state);
+
+// send data segment
+void ctcp_send_data(ctcp_state_t *state, char* data, int data_bytes, long sendtime, long delivered, long delivered_time);
+
+// send ack segment
+void ctcp_send_ack(ctcp_state_t *state);
+
+// check cksum
+int check_cksum(ctcp_segment_t *sgm);
+//***************helper functions end*************************
 
 #endif /* CTCP_H */
 

@@ -49,6 +49,9 @@ typedef struct ctcp_segment {
   uint32_t flags;        /* TCP flags */
   uint16_t window;       /* Window size, in bytes */
   uint16_t cksum;        /* Checksum */
+  long sendtime;		 /* Send time*/
+  long delivered;		 /* delivered bytes when packet is sent*/
+  long delivered_time;	 /* time when packet is delivered*/
   char data[];           /* Pointer to start of data. Takes up no space in the
                             struct unless allocated; sizeof(ctcp_segment_t)
                             does not include this field */
@@ -142,3 +145,4 @@ bool lab5_mode;
 void end_client();
 
 #endif /* CTCP_SYS_H */
+

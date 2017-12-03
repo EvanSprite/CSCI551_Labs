@@ -738,12 +738,12 @@ int conn_input(conn_t *conn, void *buf, size_t len) { ASSERT_CONN;
   /* Add network-line endings if needed. */
   else {
     r = read(STDIN_FILENO, buf, len - 1);
-    if (r > 0) {
+    /*if (r > 0) {
       if (add_network_line_ending(!unix_socket, buf, r))
         r += 1;
       else
         r += read(STDIN_FILENO, buf + r, 1);
-    }
+    }*/
   }
 
   /* Received EOF. In tester mode, we let the EOF character represent an EOF. */
@@ -1502,3 +1502,4 @@ int main(int argc , char *argv[]) {
   }
   return 0;
 }
+
